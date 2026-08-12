@@ -1,0 +1,20 @@
+# Build output
+target/
+build/
+out/
+bin/
+
+# IDE files
+.idea/**
+!.idea/.gitignore
+*.iml
+
+# Runtime and local configuration
+.env
+.env.*
+*.log
+data/
+
+# OS files
+.DS_Store
+Thumbs.db
