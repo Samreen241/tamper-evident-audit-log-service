@@ -25,3 +25,14 @@ Each note should include:
 - Validation performed: Reviewed the generated file list and confirmed the documentation baseline was committed as the repository's first commit.
 - Planned commit message: `docs: establish audit log engineering baseline`
 - Human sign-off: Shaik Samreen reviewed and approved the baseline before committing and pushing.
+
+## Entry 002 - Application skeleton
+
+- Date: 2026-08-12
+- Task: Create the initial application skeleton without audit-log business logic.
+- Prompt summary: Set up a Java 21, Maven, Spring Boot 4.1.0 codebase skeleton.
+- Context provided: Existing documentation-only repository baseline and planned audit-log service architecture.
+- Output accepted: Maven build descriptor, Spring Boot bootstrap class, application configuration, and context-load test.
+- Output rejected: Audit event models, controllers, persistence, hashing, retention, redaction, and export logic were not created.
+- Validation planned: Run `mvn test` after dependency resolution is available.
+- Human sign-off: Shaik Samreen will review the generated skeleton, run the build, and commit it if accepted.
