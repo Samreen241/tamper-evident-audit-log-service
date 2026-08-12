@@ -36,3 +36,14 @@ Each note should include:
 - Output rejected: Audit event models, controllers, persistence, hashing, retention, redaction, and export logic were not created.
 - Validation planned: Run `mvn test` after dependency resolution is available.
 - Human sign-off: Shaik Samreen will review the generated skeleton, run the build, and commit it if accepted.
+
+## Entry 003 - Persistence and facade baseline
+
+- Date: 2026-08-12
+- Task: Prepare the application for production PostgreSQL, local H2 development, and facade-based application orchestration.
+- Prompt summary: Add the required Maven dependencies and document the facade pattern and database strategy.
+- Context provided: Java 21, Maven, Spring Boot 4.1.0 skeleton and the audit-log architecture.
+- Output accepted: Spring Data JPA, PostgreSQL runtime, H2 runtime, and Flyway dependencies; architecture documentation for the facade and persistence boundaries.
+- Output rejected: No entities, repositories, facades, controllers, migrations, or database credentials were implemented in this dependency-only change.
+- Validation planned: Run Maven dependency resolution and tests, then verify migrations against H2 and PostgreSQL during implementation.
+- Human sign-off: Shaik Samreen will review the dependency set and commit it with the message `build: add persistence and facade foundations`.

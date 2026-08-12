@@ -12,6 +12,14 @@ The service will be organized into the following logical components:
 - Redaction service: authorized structured redaction and preservation of verification commitments.
 - Export service: filtered bundles with chain metadata and independent verification information.
 
+## Facade pattern
+
+The application layer will expose a small audit-log facade that coordinates validation, hashing, persistence, verification, retention, redaction, and export use cases. Controllers will depend on facade interfaces rather than directly accessing repositories or lower-level services. This keeps HTTP concerns separate from business orchestration and provides a stable boundary for tests and future adapters.
+
+## Persistence
+
+Spring Data JPA will provide the persistence abstraction. PostgreSQL is the production database, while H2 is used for local development and fast tests. Flyway will manage versioned schema migrations so local and production schemas remain reproducible.
+
 ## Data model
 
 An audit record will contain:
