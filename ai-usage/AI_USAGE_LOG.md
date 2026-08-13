@@ -70,3 +70,14 @@ Each note should include:
 - Output rejected: No update/delete API or database mutation service was added.
 - Validation planned: Run Flyway and application tests against H2, then execute the same migration against PostgreSQL before production use.
 - Human sign-off: Shaik Samreen will review and commit this migration.
+
+## Entry 009 - Persistence adapter
+
+- Date: 2026-08-13
+- Task: Add database access behind an infrastructure abstraction.
+- Prompt summary: Create the JPA entity, Spring Data repository, and MapStruct mapper for audit records without exposing update/delete operations.
+- Output accepted: Added `AuditRecordEntity`, query-focused `AuditRecordRepository`, and `AuditRecordMapper` with JSON payload conversion.
+- Design decision: The repository declares no update or delete methods. Structured payloads are serialized into the portable `TEXT` database column.
+- Output rejected: No facade orchestration, HTTP API, or direct datastore tampering utility was added.
+- Validation planned: Run Maven compilation/tests and verify generated MapStruct code against H2 and PostgreSQL.
+- Human sign-off: Shaik Samreen will review and commit this persistence adapter.
