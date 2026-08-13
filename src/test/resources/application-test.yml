@@ -9,6 +9,7 @@ spring:
   flyway.enabled: false
   h2.console.enabled: false
 app.jwt.issuer: audit-log-service-test
-app.jwt.secret: test-only-secret
+app.jwt.secret: test-only-secret-that-is-at-least-32-chars
 app.jwt.expiration: PT5M
+app.jwt.audience: audit-log-service-test
 external.integrations.enabled: false

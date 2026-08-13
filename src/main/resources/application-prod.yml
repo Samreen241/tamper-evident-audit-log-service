@@ -11,3 +11,4 @@ server.port: ${SERVER_PORT:8080}
 app.jwt.issuer: ${JWT_ISSUER}
 app.jwt.secret: ${JWT_SECRET}
 app.jwt.expiration: ${JWT_EXPIRATION:PT15M}
+app.jwt.audience: ${JWT_AUDIENCE}
