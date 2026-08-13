@@ -92,3 +92,14 @@ Each note should include:
 - Output rejected: No physical deletion or scheduled job was added; authorization for the manual retention operation will be applied through the admin security boundary.
 - Validation planned: Test cutoff behavior, idempotent archival, and verification after archival.
 - Human sign-off: Shaik Samreen will review and commit this retention implementation.
+
+## Entry 017 - Structured redaction
+
+- Date: 2026-08-13
+- Task: Add authorized, allow-listed redaction metadata and original-value commitments.
+- Prompt summary: Implement redaction requests, allowed JSON paths, commitment hashes, repeated-redaction protection, and a redaction endpoint.
+- Output accepted: Added redaction facade/controller, configurable allowed paths, commitment metadata, `REDACTED` status, and admin-only authorization.
+- Design decision: The original event hash and payload are not silently overwritten; the operation records a commitment and redaction metadata.
+- Output rejected: Full payload value removal and redaction audit-event chaining remain follow-up work because changing the payload requires a commitment-aware verification scheme.
+- Validation planned: Test allowed/disallowed paths, unauthorized access, repeated redaction, verification, and exports after redaction.
+- Human sign-off: Shaik Samreen will review and commit this redaction foundation.
