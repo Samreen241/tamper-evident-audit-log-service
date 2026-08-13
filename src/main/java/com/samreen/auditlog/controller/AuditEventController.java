@@ -13,12 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/audit/events")
+@RequestMapping("/api/v1/audit")
 public class AuditEventController {
     private final AuditLogFacade facade;
     public AuditEventController(AuditLogFacade facade) { this.facade = facade; }
 
-    @PostMapping
+    @PostMapping("/events")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Append an audit event", description = "Creates an immutable event in the audit hash chain.", security = @SecurityRequirement(name = "bearerAuth"))
     @ApiResponses({@ApiResponse(responseCode = "201", description = "Event appended"), @ApiResponse(responseCode = "400", description = "Validation failure"), @ApiResponse(responseCode = "401", description = "Authentication required")})
@@ -26,4 +26,8 @@ public class AuditEventController {
         var result = facade.appendEvent(new CreateAuditEventCommand(request.eventType(), request.actorId(), request.resourceType(), request.resourceId(), request.payload(), request.timestamp()));
         return new AuditEventResponse(result.id(), result.sequenceNumber(), result.eventType(), result.actorId(), result.resourceType(), result.resourceId(), result.payload(), result.timestamp(), result.previousHash(), result.contentHash());
     }
+
+    @GetMapping("/verify")
+    @Operation(summary = "Verify the audit chain", description = "Walks all records and reports the first detected inconsistency.")
+    public com.samreen.auditlog.facade.AuditChainVerificationResponse verify() { return facade.verifyChain(); }
 }
