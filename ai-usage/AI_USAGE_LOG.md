@@ -81,3 +81,14 @@ Each note should include:
 - Output rejected: No facade orchestration, HTTP API, or direct datastore tampering utility was added.
 - Validation planned: Run Maven compilation/tests and verify generated MapStruct code against H2 and PostgreSQL.
 - Human sign-off: Shaik Samreen will review and commit this persistence adapter.
+
+## Entry 016 - Retention and archival
+
+- Date: 2026-08-13
+- Task: Add configurable soft archival without breaking chain verification.
+- Prompt summary: Implement retention policy duration, manual archive operation, active/archived statuses, and database-backed archival.
+- Output accepted: Added `RetentionPolicyService`, `RetentionFacade`, and a transactional repository operation that marks expired active records as `ARCHIVED`.
+- Design decision: Archived records remain physically present and are included in full-chain verification; the retention window is configured through `app.retention.window`.
+- Output rejected: No physical deletion or scheduled job was added; authorization for the manual retention operation will be applied through the admin security boundary.
+- Validation planned: Test cutoff behavior, idempotent archival, and verification after archival.
+- Human sign-off: Shaik Samreen will review and commit this retention implementation.
