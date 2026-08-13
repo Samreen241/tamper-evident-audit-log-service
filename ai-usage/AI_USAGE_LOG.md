@@ -139,3 +139,15 @@ Each note should include:
 - Validation: Confirmed no `infrastructure.persistence` references remain and inspected the working-tree changes.
 - Human decision: Shaik Samreen reviewed the refactor and will create the commit.
 - Commit reference: `refactor: align packages with facade architecture`.
+
+## Entry 023 - Final rehearsal and submission readiness
+
+- Date: 2026-08-13
+- Task: Perform final repository and submission-readiness checks.
+- Prompt summary: Rehearse a clean checkout, verify build/run/API/security behavior, inspect secrets and confidential files, and prepare the final submission commit.
+- Accepted output: Reviewed Git history, configured remote, attestation, repository contents, and available local evidence.
+- Modified output: This traceability entry records the actual checks and their limitations.
+- Rejected output: No claim was made that Maven tests, Swagger, JWT, database tampering, or end-to-end flows passed because Maven is unavailable in the current environment and no clean clone was created.
+- Validation: Git history is incremental; no assignment PDF or obvious secret material was found. Production configuration contains placeholders only.
+- Human decision: Shaik Samreen must run the clean clone rehearsal and review all remaining test failures before submission.
+- Commit reference: `chore: prepare audit log service for submission`.
