@@ -1,5 +1,9 @@
 # Scenario C - Compliance Reporting
 
+## Milestone 17 status
+
+The report is implemented as a read-only facade-backed endpoint. Access events are currently identified by event types containing `ACCESS`; this requires product confirmation.
+
 ## Ambiguous requirement
 
 Regulators need to be able to audit access to client account data.

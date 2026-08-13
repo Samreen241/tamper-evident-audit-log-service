@@ -1,5 +1,9 @@
 # Scenario A - Core Audit Log Service
 
+## Milestone 17 status
+
+Core domain, persistence, append, query, and verification foundations are implemented. Direct-tampering and concurrent-write integration evidence remains pending.
+
 ## Decomposition
 
 1. Normalize event and chain requirements.

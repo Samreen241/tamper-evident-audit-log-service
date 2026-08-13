@@ -4,6 +4,7 @@ import com.samreen.auditlog.dto.AuditEventResponse;
 import com.samreen.auditlog.dto.CreateAuditEventRequest;
 import com.samreen.auditlog.facade.AuditLogFacade;
 import com.samreen.auditlog.facade.CreateAuditEventCommand;
+import com.samreen.auditlog.facade.AuditEventQuery;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

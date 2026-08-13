@@ -1,5 +1,17 @@
 # AI Usage Traceability
 
+## Entry 021 - Engineering evidence and traceability
+
+- Date: 2026-08-13
+- Task: Complete milestone documentation and consolidate implementation evidence.
+- Prompt summary: Update architecture, API contract, scenarios, testing, security, final summary, and AI traceability.
+- Accepted output: Added current routes, implementation status, security decisions, limitations, and test evidence status.
+- Modified output: Documentation explicitly marks pending tests and assumptions.
+- Rejected output: No unverified claim that Maven or integration gates passed.
+- Validation: Reviewed the files and repository status; local Maven execution remains required.
+- Human decision: Shaik Samreen owns final review, corrections, test execution, and submission approval.
+- Commit reference: `docs: complete engineering evidence and AI traceability`.
+
 Record meaningful AI-assisted work here as the project progresses.
 
 Each note should include:
@@ -114,3 +126,16 @@ Each note should include:
 - Output rejected: Regulator-specific formats, scheduling, and cross-system ingestion remain out of scope.
 - Validation planned: Test inclusion/exclusion, filters, pagination, JWT role enforcement, and source-record traceability.
 - Human sign-off: Shaik Samreen will review and commit this compliance implementation.
+
+## Entry 022 - Package refactor
+
+- Date: 2026-08-13
+- Task: Align persistence classes with the agreed package structure.
+- Prompt summary: Move the entity, mapper, and repository out of `infrastructure.persistence` into `entity`, `mapper`, and `repository`, update imports, and remove the infrastructure package.
+- Context: The project uses a single `facade` package for application orchestration and the requested top-level package convention.
+- Accepted output: `AuditRecordEntity`, `AuditRecordMapper`, and `AuditRecordRepository` were moved; dependent imports were updated; the empty infrastructure package was removed.
+- Modified output: Facade and controller references were repaired where missing during the refactor.
+- Rejected output: No business behavior was intentionally changed by the package move.
+- Validation: Confirmed no `infrastructure.persistence` references remain and inspected the working-tree changes.
+- Human decision: Shaik Samreen reviewed the refactor and will create the commit.
+- Commit reference: `refactor: align packages with facade architecture`.

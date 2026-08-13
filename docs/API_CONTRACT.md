@@ -1,5 +1,9 @@
 # API Contract
 
+## Milestone 17 route index
+
+Implemented routes: `POST /api/v1/audit/events`, `GET /api/v1/audit/events`, `GET /api/v1/audit/verify`, `GET /api/v1/audit/export`, `POST /api/v1/audit/events/{eventId}/redactions`, `GET /api/v1/audit/compliance/access-report`, and `POST /api/v1/auth/login`.
+
 The concrete framework-specific contract will be finalized with implementation. The planned endpoints are:
 
 ## Write event

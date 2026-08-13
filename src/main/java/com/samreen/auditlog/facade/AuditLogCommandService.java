@@ -1,7 +1,9 @@
 package com.samreen.auditlog.facade;
 import com.samreen.auditlog.domain.model.*;
+import com.samreen.auditlog.entity.AuditRecordEntity;
+import com.samreen.auditlog.mapper.AuditRecordMapper;
+import com.samreen.auditlog.repository.AuditRecordRepository;
 import com.samreen.auditlog.domain.service.HashChainService;
-import com.samreen.auditlog.infrastructure.persistence.*;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;

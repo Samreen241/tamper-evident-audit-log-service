@@ -1,4 +1,6 @@
-package com.samreen.auditlog.infrastructure.persistence;
+package com.samreen.auditlog.repository;
+
+import com.samreen.auditlog.entity.AuditRecordEntity;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

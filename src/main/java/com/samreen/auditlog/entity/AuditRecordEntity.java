@@ -1,4 +1,4 @@
-package com.samreen.auditlog.infrastructure.persistence;
+package com.samreen.auditlog.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

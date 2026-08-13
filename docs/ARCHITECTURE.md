@@ -75,3 +75,7 @@ Creating a record and advancing the chain position must occur in one transaction
 ## Scope boundary
 
 Authentication, distributed consensus, key rotation, external immutable storage, and production deployment infrastructure are outside the initial prototype unless added explicitly during implementation.
+
+## Milestone 17 status
+
+Implemented foundations include the hash chain, JPA adapter, facade flows, REST APIs, profiles, retention, redaction metadata, export, and compliance reporting. Final integration tests and production hardening remain pending.

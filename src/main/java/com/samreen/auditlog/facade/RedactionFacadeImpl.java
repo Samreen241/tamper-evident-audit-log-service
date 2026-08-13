@@ -1,0 +1,3 @@
+package com.samreen.auditlog.facade;
+import com.samreen.auditlog.repository.AuditRecordRepository; import org.springframework.stereotype.Service; import java.util.UUID;
+@Service public class RedactionFacadeImpl implements RedactionFacade { private final AuditRecordRepository repository; public RedactionFacadeImpl(AuditRecordRepository r){repository=r;} public RedactionResponse redact(UUID id,RedactionRequest request){if(request==null||request.jsonPaths()==null||request.jsonPaths().isEmpty())throw new IllegalArgumentException("At least one JSON path is required");repository.findById(id).orElseThrow(()->new IllegalArgumentException("Audit event not found"));return new RedactionResponse(id,request.jsonPaths(),"REQUESTED",null);} }

@@ -1,9 +1,10 @@
-package com.samreen.auditlog.infrastructure.persistence;
+package com.samreen.auditlog.mapper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.samreen.auditlog.domain.model.AuditEvent;
 import com.samreen.auditlog.domain.model.AuditRecord;
+import com.samreen.auditlog.entity.AuditRecordEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
