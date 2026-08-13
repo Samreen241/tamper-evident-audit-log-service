@@ -1,0 +1,15 @@
+spring:
+  config.activate.on-profile: local
+  datasource.url: jdbc:h2:file:./data/audit-log-local;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+  datasource.username: ${LOCAL_DB_USERNAME:sa}
+  datasource.password: ${LOCAL_DB_PASSWORD:}
+  datasource.driver-class-name: org.h2.Driver
+  h2.console.enabled: true
+  h2.console.path: /h2-console
+  jpa.hibernate.ddl-auto: validate
+  jpa.database-platform: org.hibernate.dialect.H2Dialect
+  flyway.enabled: true
+server.port: ${LOCAL_SERVER_PORT:8080}
+app.jwt.issuer: ${LOCAL_JWT_ISSUER:audit-log-service-local}
+app.jwt.secret: ${LOCAL_JWT_SECRET:change-me-in-local-environment}
+app.jwt.expiration: ${LOCAL_JWT_EXPIRATION:PT30M}

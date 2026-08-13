@@ -12,6 +12,25 @@ The service will be organized into the following logical components:
 - Redaction service: authorized structured redaction and preservation of verification commitments.
 - Export service: filtered bundles with chain metadata and independent verification information.
 
+## Package structure
+
+The implementation will use the following package layout:
+
+```text
+com.samreen.auditlog
+|-- config
+|-- controller
+|-- exception
+|-- entity
+|-- mapper
+|-- facade
+|-- repository
+|-- dto
+|-- utils
+```
+
+The `facade` package is the single application-service boundary. Controllers will delegate use cases to facade classes, while facades coordinate validation, mapping, domain rules, persistence, and response creation. The `mapper` package will use MapStruct for explicit entity-to-DTO and DTO-to-command mappings.
+
 ## Facade pattern
 
 The application layer will expose a small audit-log facade that coordinates validation, hashing, persistence, verification, retention, redaction, and export use cases. Controllers will depend on facade interfaces rather than directly accessing repositories or lower-level services. This keeps HTTP concerns separate from business orchestration and provides a stable boundary for tests and future adapters.

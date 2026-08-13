@@ -1,0 +1,13 @@
+spring:
+  config.activate.on-profile: prod
+  datasource.url: ${DB_URL}
+  datasource.username: ${DB_USERNAME}
+  datasource.password: ${DB_PASSWORD}
+  datasource.driver-class-name: org.postgresql.Driver
+  jpa.hibernate.ddl-auto: validate
+  jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
+  flyway.enabled: true
+server.port: ${SERVER_PORT:8080}
+app.jwt.issuer: ${JWT_ISSUER}
+app.jwt.secret: ${JWT_SECRET}
+app.jwt.expiration: ${JWT_EXPIRATION:PT15M}

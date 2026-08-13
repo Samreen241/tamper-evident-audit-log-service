@@ -2,5 +2,10 @@ spring:
   application:
     name: audit-log-service
 
+  jpa:
+    open-in-view: false
+  flyway:
+    enabled: true
+
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}

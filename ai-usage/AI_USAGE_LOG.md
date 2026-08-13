@@ -47,3 +47,15 @@ Each note should include:
 - Output rejected: No entities, repositories, facades, controllers, migrations, or database credentials were implemented in this dependency-only change.
 - Validation planned: Run Maven dependency resolution and tests, then verify migrations against H2 and PostgreSQL during implementation.
 - Human sign-off: Shaik Samreen will review the dependency set and commit it with the message `build: add persistence and facade foundations`.
+
+## Entry 004 - Package and mapping convention
+
+- Date: 2026-08-13
+- Task: Reformat the implementation package structure around the facade pattern.
+- Prompt summary: Use one `facade` package for application services and organize the code under config, controller, exception, entity, mapper, facade, repository, dto, and utils packages.
+- Context provided: Java 21, Spring Boot, Maven, PostgreSQL production, H2 local/testing, Swagger/OpenAPI, JUnit, JWT, and the audit-log requirements.
+- Output accepted: The architecture now defines the requested package layout and MapStruct as the mapping technology.
+- Design decision: Facades are the single service boundary between controllers and persistence/domain orchestration; controllers must not call repositories directly.
+- Output rejected: No package relocation, MapStruct dependency change, or implementation code was performed in this documentation update.
+- Validation performed: Reviewed the architecture package tree and confirmed no Git commit was created.
+- Human sign-off: Shaik Samreen will review the package convention and use the commit message `build: establish audit log service foundation` when committing the related baseline changes.
