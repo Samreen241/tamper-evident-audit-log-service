@@ -3,12 +3,13 @@ package com.samreen.auditlog.infrastructure.persistence;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface AuditRecordRepository extends JpaRepository<AuditRecordEntity, UUID> {
+public interface AuditRecordRepository extends JpaRepository<AuditRecordEntity, UUID>, JpaSpecificationExecutor<AuditRecordEntity> {
     Optional<AuditRecordEntity> findTopByOrderBySequenceNumberDesc();
     Page<AuditRecordEntity> findBySequenceNumberBetween(long from, long to, Pageable pageable);
     Page<AuditRecordEntity> findByActorId(String actorId, Pageable pageable);
