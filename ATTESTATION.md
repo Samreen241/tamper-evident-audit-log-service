@@ -18,4 +18,6 @@ Latest development update: 2026-08-13 - JPA persistence adapter, repository abst
 
 Latest development update: 2026-08-13 - configurable soft archival and retention policy added; no commit created by AI.
 
+Latest development update: 2026-08-13 - compliance access reporting requirement normalized and endpoint added; no commit created by AI.
+
 I, Shaik Samreen, attest that this submission is my own individual work, completed on my own machine and accounts, and that it honestly reflects my development process and use of AI.

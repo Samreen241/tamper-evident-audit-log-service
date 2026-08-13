@@ -103,3 +103,14 @@ Each note should include:
 - Output rejected: Full payload value removal and redaction audit-event chaining remain follow-up work because changing the payload requires a commitment-aware verification scheme.
 - Validation planned: Test allowed/disallowed paths, unauthorized access, repeated redaction, verification, and exports after redaction.
 - Human sign-off: Shaik Samreen will review and commit this redaction foundation.
+
+## Entry 019 - Compliance access reporting
+
+- Date: 2026-08-13
+- Task: Normalize and implement the ambiguous regulator access-report requirement.
+- Prompt summary: Document clarifications, assumptions, scope, security, filters, and implement a traceable access report.
+- Output accepted: Added compliance reporting documentation, a read-only facade, role-protected endpoint, access-event filtering, pagination, and source audit identifiers/hashes.
+- Design decision: The prototype classifies event types containing `ACCESS` as access events; this taxonomy must be confirmed before production use.
+- Output rejected: Regulator-specific formats, scheduling, and cross-system ingestion remain out of scope.
+- Validation planned: Test inclusion/exclusion, filters, pagination, JWT role enforcement, and source-record traceability.
+- Human sign-off: Shaik Samreen will review and commit this compliance implementation.
