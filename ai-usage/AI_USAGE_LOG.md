@@ -1,153 +1,222 @@
 # AI Usage Traceability
 
-## Entry 021 - Engineering evidence and traceability
-
-- Date: 2026-08-13
-- Task: Complete milestone documentation and consolidate implementation evidence.
-- Prompt summary: Update architecture, API contract, scenarios, testing, security, final summary, and AI traceability.
-- Accepted output: Added current routes, implementation status, security decisions, limitations, and test evidence status.
-- Modified output: Documentation explicitly marks pending tests and assumptions.
-- Rejected output: No unverified claim that Maven or integration gates passed.
-- Validation: Reviewed the files and repository status; local Maven execution remains required.
-- Human decision: Shaik Samreen owns final review, corrections, test execution, and submission approval.
-- Commit reference: `docs: complete engineering evidence and AI traceability`.
-
-Record meaningful AI-assisted work here as the project progresses.
-
-Each note should include:
-
-- Date
-- Task and intended outcome
-- Prompt or prompt summary
-- Context provided
-- Output accepted, modified, or rejected
-- Reason for the decision
-- Validation performed
-- Human sign-off or follow-up action
+This log records meaningful AI-assisted work, human decisions, validation status, and commit references. AI output was reviewed by Shaik Samreen; unverified behavior is not represented as complete.
 
 ## Entry 001 - Documentation baseline
 
 - Date: 2026-08-12
-- Task: Establish the repository documentation baseline before implementation.
-- Prompt summary: Create the architecture file and all required assignment documentation as part of the first commit, without creating application project structure.
-- Context provided: Assignment requirements covering the audit log service, three scenarios, testing, security, AI traceability, and final engineering summary.
-- Output accepted: Documentation-only baseline containing requirements, architecture, API contract, scenario plans, testing, security, and final-summary files.
-- Output modified: Generic documentation filenames were replaced with descriptive names, including `PROJECT_OVERVIEW.md`.
-- Output rejected: Application source folders and implementation scaffolding were intentionally not created at this stage.
-- Validation performed: Reviewed the generated file list and confirmed the documentation baseline was committed as the repository's first commit.
-- Planned commit message: `docs: establish audit log engineering baseline`
-- Human sign-off: Shaik Samreen reviewed and approved the baseline before committing and pushing.
+- Task: Establish the repository documentation baseline.
+- Prompt summary: Create assignment documentation without application source structure.
+- Accepted: README/project overview, attestation, engineering documentation, scenario documents, testing/security documentation, and AI usage log.
+- Modified: Generic documentation names were replaced with descriptive names.
+- Rejected: Application implementation scaffolding.
+- Validation: Repository contents reviewed.
+- Human decision: Approved for the first documentation commit.
+- Commit reference: `docs: establish audit log engineering baseline`.
 
-## Entry 002 - Application skeleton
-
-- Date: 2026-08-12
-- Task: Create the initial application skeleton without audit-log business logic.
-- Prompt summary: Set up a Java 21, Maven, Spring Boot 4.1.0 codebase skeleton.
-- Context provided: Existing documentation-only repository baseline and planned audit-log service architecture.
-- Output accepted: Maven build descriptor, Spring Boot bootstrap class, application configuration, and context-load test.
-- Output rejected: Audit event models, controllers, persistence, hashing, retention, redaction, and export logic were not created.
-- Validation planned: Run `mvn test` after dependency resolution is available.
-- Human sign-off: Shaik Samreen will review the generated skeleton, run the build, and commit it if accepted.
-
-## Entry 003 - Persistence and facade baseline
+## Entry 002 - Java application skeleton
 
 - Date: 2026-08-12
-- Task: Prepare the application for production PostgreSQL, local H2 development, and facade-based application orchestration.
-- Prompt summary: Add the required Maven dependencies and document the facade pattern and database strategy.
-- Context provided: Java 21, Maven, Spring Boot 4.1.0 skeleton and the audit-log architecture.
-- Output accepted: Spring Data JPA, PostgreSQL runtime, H2 runtime, and Flyway dependencies; architecture documentation for the facade and persistence boundaries.
-- Output rejected: No entities, repositories, facades, controllers, migrations, or database credentials were implemented in this dependency-only change.
-- Validation planned: Run Maven dependency resolution and tests, then verify migrations against H2 and PostgreSQL during implementation.
-- Human sign-off: Shaik Samreen will review the dependency set and commit it with the message `build: add persistence and facade foundations`.
+- Task: Create a Java 21, Maven, Spring Boot 4.1.0 skeleton.
+- Accepted: `pom.xml`, application bootstrap, configuration, and context-load test.
+- Rejected: Business logic, persistence, controllers, hashing, retention, redaction, and export.
+- Validation: Maven execution remained pending because Maven was unavailable in the environment.
+- Human decision: Shaik Samreen to review and commit.
+- Commit reference: `build: initialize Spring Boot audit log service`.
 
-## Entry 004 - Package and mapping convention
+## Entry 003 - Persistence dependencies and architecture
 
-- Date: 2026-08-13
-- Task: Reformat the implementation package structure around the facade pattern.
-- Prompt summary: Use one `facade` package for application services and organize the code under config, controller, exception, entity, mapper, facade, repository, dto, and utils packages.
-- Context provided: Java 21, Spring Boot, Maven, PostgreSQL production, H2 local/testing, Swagger/OpenAPI, JUnit, JWT, and the audit-log requirements.
-- Output accepted: The architecture now defines the requested package layout and MapStruct as the mapping technology.
-- Design decision: Facades are the single service boundary between controllers and persistence/domain orchestration; controllers must not call repositories directly.
-- Output rejected: No package relocation, MapStruct dependency change, or implementation code was performed in this documentation update.
-- Validation performed: Reviewed the architecture package tree and confirmed no Git commit was created.
-- Human sign-off: Shaik Samreen will review the package convention and use the commit message `build: establish audit log service foundation` when committing the related baseline changes.
+- Date: 2026-08-12
+- Task: Prepare PostgreSQL production and H2 local/testing persistence.
+- Accepted: Spring Data JPA, PostgreSQL, H2, and Flyway dependencies; facade and persistence architecture documentation.
+- Rejected: Database entities, repositories, migrations, and credentials.
+- Validation: Dependency resolution planned locally.
+- Human decision: Approved for review.
+- Commit reference: `build: add persistence and facade foundations`.
 
-## Entry 007 - Audit record migration
+## Entry 004 - Package and MapStruct convention
 
 - Date: 2026-08-13
-- Task: Define the production-compatible audit record schema and Flyway migration.
-- Prompt summary: Create `V1__create_audit_records.sql` with audit fields, constraints, and indexes for H2 and PostgreSQL.
-- Output accepted: Added the audit record table with UUID identity, unique sequence and content hashes, non-null chain hashes, status constraint, portable text storage for structured JSON values, and required query indexes.
-- Design decision: `payload` and `redaction_metadata` use `TEXT` in the shared migration for H2/PostgreSQL portability; the application will serialize and validate structured JSON.
-- Output rejected: No update/delete API or database mutation service was added.
-- Validation planned: Run Flyway and application tests against H2, then execute the same migration against PostgreSQL before production use.
-- Human sign-off: Shaik Samreen will review and commit this migration.
+- Task: Define the requested package structure and single facade service package.
+- Accepted: `config`, `controller`, `exception`, `entity`, `mapper`, `facade`, `repository`, `dto`, and `utils` convention; MapStruct configuration.
+- Rejected: Business implementations at this stage.
+- Validation: Architecture reviewed.
+- Human decision: Controllers depend on facades; repositories remain behind the facade boundary.
+- Commit reference: `build: establish audit log service foundation`.
 
-## Entry 009 - Persistence adapter
-
-- Date: 2026-08-13
-- Task: Add database access behind an infrastructure abstraction.
-- Prompt summary: Create the JPA entity, Spring Data repository, and MapStruct mapper for audit records without exposing update/delete operations.
-- Output accepted: Added `AuditRecordEntity`, query-focused `AuditRecordRepository`, and `AuditRecordMapper` with JSON payload conversion.
-- Design decision: The repository declares no update or delete methods. Structured payloads are serialized into the portable `TEXT` database column.
-- Output rejected: No facade orchestration, HTTP API, or direct datastore tampering utility was added.
-- Validation planned: Run Maven compilation/tests and verify generated MapStruct code against H2 and PostgreSQL.
-- Human sign-off: Shaik Samreen will review and commit this persistence adapter.
-
-## Entry 016 - Retention and archival
+## Entry 005 - Environment profiles
 
 - Date: 2026-08-13
-- Task: Add configurable soft archival without breaking chain verification.
-- Prompt summary: Implement retention policy duration, manual archive operation, active/archived statuses, and database-backed archival.
-- Output accepted: Added `RetentionPolicyService`, `RetentionFacade`, and a transactional repository operation that marks expired active records as `ARCHIVED`.
-- Design decision: Archived records remain physically present and are included in full-chain verification; the retention window is configured through `app.retention.window`.
-- Output rejected: No physical deletion or scheduled job was added; authorization for the manual retention operation will be applied through the admin security boundary.
-- Validation planned: Test cutoff behavior, idempotent archival, and verification after archival.
-- Human sign-off: Shaik Samreen will review and commit this retention implementation.
+- Task: Separate local, test, and production configuration.
+- Accepted: H2 local/test profiles, PostgreSQL production placeholders, Flyway, JPA validation, JWT placeholders, and disabled test integrations.
+- Rejected: Real credentials and secrets.
+- Validation: Local profile and test execution planned locally.
+- Human decision: Production secrets must come from environment variables.
+- Commit reference: `config: add local test and production profiles`.
 
-## Entry 017 - Structured redaction
-
-- Date: 2026-08-13
-- Task: Add authorized, allow-listed redaction metadata and original-value commitments.
-- Prompt summary: Implement redaction requests, allowed JSON paths, commitment hashes, repeated-redaction protection, and a redaction endpoint.
-- Output accepted: Added redaction facade/controller, configurable allowed paths, commitment metadata, `REDACTED` status, and admin-only authorization.
-- Design decision: The original event hash and payload are not silently overwritten; the operation records a commitment and redaction metadata.
-- Output rejected: Full payload value removal and redaction audit-event chaining remain follow-up work because changing the payload requires a commitment-aware verification scheme.
-- Validation planned: Test allowed/disallowed paths, unauthorized access, repeated redaction, verification, and exports after redaction.
-- Human sign-off: Shaik Samreen will review and commit this redaction foundation.
-
-## Entry 019 - Compliance access reporting
+## Entry 006 - Database migration
 
 - Date: 2026-08-13
-- Task: Normalize and implement the ambiguous regulator access-report requirement.
-- Prompt summary: Document clarifications, assumptions, scope, security, filters, and implement a traceable access report.
-- Output accepted: Added compliance reporting documentation, a read-only facade, role-protected endpoint, access-event filtering, pagination, and source audit identifiers/hashes.
-- Design decision: The prototype classifies event types containing `ACCESS` as access events; this taxonomy must be confirmed before production use.
-- Output rejected: Regulator-specific formats, scheduling, and cross-system ingestion remain out of scope.
-- Validation planned: Test inclusion/exclusion, filters, pagination, JWT role enforcement, and source-record traceability.
-- Human sign-off: Shaik Samreen will review and commit this compliance implementation.
+- Task: Define the production-compatible audit record schema.
+- Accepted: Flyway V1 migration, constraints, chain fields, status constraint, and indexes.
+- Design decision: Payload and redaction metadata use portable `TEXT` storage with application JSON serialization.
+- Validation: H2 and PostgreSQL migration execution remained pending.
+- Human decision: Review required before production use.
+- Commit reference: `db: add audit record schema and migrations`.
 
-## Entry 022 - Package refactor
+## Entry 007 - Domain hash chain
 
 - Date: 2026-08-13
-- Task: Align persistence classes with the agreed package structure.
-- Prompt summary: Move the entity, mapper, and repository out of `infrastructure.persistence` into `entity`, `mapper`, and `repository`, update imports, and remove the infrastructure package.
-- Context: The project uses a single `facade` package for application orchestration and the requested top-level package convention.
-- Accepted output: `AuditRecordEntity`, `AuditRecordMapper`, and `AuditRecordRepository` were moved; dependent imports were updated; the empty infrastructure package was removed.
-- Modified output: Facade and controller references were repaired where missing during the refactor.
-- Rejected output: No business behavior was intentionally changed by the package move.
-- Validation: Confirmed no `infrastructure.persistence` references remain and inspected the working-tree changes.
-- Human decision: Shaik Samreen reviewed the refactor and will create the commit.
+- Task: Implement canonical hashing independently of HTTP and persistence.
+- Accepted: Domain records, deterministic JSON, SHA-256 hexadecimal hashes, genesis value, verification result, and unit tests.
+- Validation: Tests added; Maven execution pending.
+- Human decision: Engineer owns canonicalization and verification correctness.
+- Commit reference: `feat: implement canonical audit hash chain`.
+
+## Entry 008 - Persistence adapter
+
+- Date: 2026-08-13
+- Task: Add JPA entity, repository abstraction, and MapStruct mapper.
+- Accepted: Append/query-focused persistence types.
+- Rejected: Public update/delete repository operations.
+- Validation: MapStruct generation and H2/PostgreSQL verification pending.
+- Human decision: Persistence boundary reviewed.
+- Commit reference: `feat: add audit record persistence adapter`.
+
+## Entry 009 - Facade write flow
+
+- Date: 2026-08-13
+- Task: Centralize append orchestration behind the facade.
+- Accepted: Validation, timestamp assignment, sequence lookup, hash linking, transaction boundary, persistence, and response mapping.
+- Validation: Unit coverage added; concurrency and database tests pending.
+- Human decision: Controllers must not call repositories directly.
+- Commit reference: `feat: add audit log application facade`.
+
+## Entry 010 - Write API
+
+- Date: 2026-08-13
+- Task: Expose append-only event ingestion.
+- Accepted: REST endpoint, DTO validation, Swagger annotations, exception handling, and initial MockMvc tests.
+- Rejected: Update/delete endpoints.
+- Validation: JWT authorization tests deferred to security work; Maven execution pending.
+- Human decision: Facade remains the controller boundary.
+- Commit reference: `feat: expose append-only audit event API`.
+
+## Entry 011 - Query API
+
+- Date: 2026-08-13
+- Task: Add filtered and paginated event retrieval.
+- Accepted: JPA Specification filtering, AND semantics, time boundaries, maximum page size, and stable ordering.
+- Validation: Filter and pagination tests remained incomplete.
+- Human decision: Avoid duplicated repository methods for every filter combination.
+- Commit reference: `feat: add filtered paginated audit queries`.
+
+## Entry 012 - Chain verification API
+
+- Date: 2026-08-13
+- Task: Detect and report tampering.
+- Accepted: Verification facade flow, endpoint, sequence/hash/link checks, and violation response.
+- Validation: Direct datastore tampering integration test remained pending.
+- Human decision: Archived-record behavior to be finalized with retention.
+- Commit reference: `feat: add audit chain verification endpoint`.
+
+## Entry 013 - OpenAPI documentation
+
+- Date: 2026-08-13
+- Task: Make APIs reviewable through Swagger/OpenAPI.
+- Accepted: OpenAPI configuration, bearer scheme metadata, and API usage documentation.
+- Rejected: JWT implementation in this milestone.
+- Validation: Swagger UI and `/v3/api-docs` verification pending local run.
+- Human decision: Security scheme named `bearerAuth`.
+- Commit reference: `docs: document audit APIs with OpenAPI`.
+
+## Entry 014 - JWT security
+
+- Date: 2026-08-13
+- Task: Add stateless JWT authentication and authorization.
+- Accepted: Spring Security/JJWT dependencies, token service/filter, login foundation, issuer/audience/expiration checks, and role rules.
+- Rejected: Hardcoded production secrets and persistent user management.
+- Validation: Authentication and authorization tests remained pending.
+- Human decision: Secrets must be environment-backed and tokens must not be logged.
+- Commit reference: `feat: secure audit APIs with JWT authorization`.
+
+## Entry 015 - Retention
+
+- Date: 2026-08-13
+- Task: Add configurable soft archival.
+- Accepted: Retention policy, archive operation, `ARCHIVED` status, and configuration.
+- Design decision: Archived records remain available to full-chain verification.
+- Validation: Cutoff, idempotency, and post-archival verification tests pending.
+- Commit reference: `feat: add configurable audit retention`.
+
+## Entry 016 - Structured redaction
+
+- Date: 2026-08-13
+- Task: Protect sensitive payload fields while preserving evidence.
+- Accepted: Allow-listed paths, admin boundary, commitment metadata, redacted status, and redaction endpoint foundation.
+- Limitation: Original payload removal and a complete redaction audit-event chain were not fully implemented.
+- Validation: Redaction, authorization, repeated-redaction, and verification tests pending.
+- Commit reference: `feat: add privacy-preserving audit redaction`.
+
+## Entry 017 - Verifiable export
+
+- Date: 2026-08-13
+- Task: Export filtered records with independent verification metadata.
+- Accepted: Resource/actor export facade, bundle metadata, hashes, genesis and boundary fields, and verification instructions.
+- Validation: Export, tampering, redaction, and authorization tests pending.
+- Commit reference: `feat: add verifiable audit export bundles`.
+
+## Entry 018 - Compliance reporting
+
+- Date: 2026-08-13
+- Task: Normalize and implement the ambiguous access-report requirement.
+- Accepted: Clarification document, compliance facade, role-protected endpoint, access-event filtering, pagination, and source record traceability.
+- Assumption: Event types containing `ACCESS` represent access events; product confirmation is required.
+- Validation: Inclusion/exclusion, filter, role, and traceability tests pending.
+- Commit reference: `feat: add compliance access reporting`.
+
+## Entry 019 - Quality gates
+
+- Date: 2026-08-13
+- Task: Establish test strategy and validation gates.
+- Accepted: Test plan, JaCoCo, Java 21 enforcement, and OWASP Dependency-Check configuration.
+- Validation: `mvn clean test` and `mvn verify` were not run because Maven was unavailable.
+- Human decision: No quality gate may be claimed as passed without local evidence.
+- Commit reference: `test: add audit service validation and quality gates`.
+
+## Entry 020 - Engineering evidence
+
+- Date: 2026-08-13
+- Task: Complete architecture, API, scenario, security, testing, final summary, and traceability documentation.
+- Accepted: Documentation updates explicitly distinguishing implemented, partial, pending, and limited behavior.
+- Validation: Files reviewed; execution evidence remained pending.
+- Human decision: Shaik Samreen owns final correctness and submission claims.
+- Commit reference: `docs: complete engineering evidence and AI traceability`.
+
+## Entry 021 - Package refactor
+
+- Date: 2026-08-13
+- Task: Move persistence classes into the agreed top-level packages.
+- Accepted: Entity, mapper, and repository moved from `infrastructure.persistence`; imports updated; infrastructure package removed.
+- Validation: No `infrastructure.persistence` references remained.
+- Human decision: No intended business behavior change.
 - Commit reference: `refactor: align packages with facade architecture`.
 
-## Entry 023 - Final rehearsal and submission readiness
+## Entry 022 - Final rehearsal
 
 - Date: 2026-08-13
-- Task: Perform final repository and submission-readiness checks.
-- Prompt summary: Rehearse a clean checkout, verify build/run/API/security behavior, inspect secrets and confidential files, and prepare the final submission commit.
-- Accepted output: Reviewed Git history, configured remote, attestation, repository contents, and available local evidence.
-- Modified output: This traceability entry records the actual checks and their limitations.
-- Rejected output: No claim was made that Maven tests, Swagger, JWT, database tampering, or end-to-end flows passed because Maven is unavailable in the current environment and no clean clone was created.
-- Validation: Git history is incremental; no assignment PDF or obvious secret material was found. Production configuration contains placeholders only.
-- Human decision: Shaik Samreen must run the clean clone rehearsal and review all remaining test failures before submission.
+- Task: Assess final submission readiness.
+- Accepted: Git history, remote, tracked-file scan, attestation, and secret-placeholder review.
+- Rejected: No claim that Maven, Swagger, JWT, database tampering, or end-to-end flows passed without execution.
+- Validation: Clean clone and Maven rehearsal remained pending.
+- Human decision: Shaik Samreen must run the final rehearsal locally.
 - Commit reference: `chore: prepare audit log service for submission`.
+
+## Entry 023 - Additional JUnit coverage
+
+- Date: 2026-08-13
+- Task: Continue writing tests for uncovered behavior.
+- Accepted: Retention cutoff, invalid retention duration, content tampering, append validation, and oversized-page tests.
+- Validation: Tests were added but not executed because Maven was unavailable.
+- Human decision: Run `mvn clean test` locally and address failures.
+- Commit reference: `test: expand audit service unit coverage`.
