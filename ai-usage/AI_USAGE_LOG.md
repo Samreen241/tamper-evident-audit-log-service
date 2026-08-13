@@ -59,3 +59,14 @@ Each note should include:
 - Output rejected: No package relocation, MapStruct dependency change, or implementation code was performed in this documentation update.
 - Validation performed: Reviewed the architecture package tree and confirmed no Git commit was created.
 - Human sign-off: Shaik Samreen will review the package convention and use the commit message `build: establish audit log service foundation` when committing the related baseline changes.
+
+## Entry 007 - Audit record migration
+
+- Date: 2026-08-13
+- Task: Define the production-compatible audit record schema and Flyway migration.
+- Prompt summary: Create `V1__create_audit_records.sql` with audit fields, constraints, and indexes for H2 and PostgreSQL.
+- Output accepted: Added the audit record table with UUID identity, unique sequence and content hashes, non-null chain hashes, status constraint, portable text storage for structured JSON values, and required query indexes.
+- Design decision: `payload` and `redaction_metadata` use `TEXT` in the shared migration for H2/PostgreSQL portability; the application will serialize and validate structured JSON.
+- Output rejected: No update/delete API or database mutation service was added.
+- Validation planned: Run Flyway and application tests against H2, then execute the same migration against PostgreSQL before production use.
+- Human sign-off: Shaik Samreen will review and commit this migration.
