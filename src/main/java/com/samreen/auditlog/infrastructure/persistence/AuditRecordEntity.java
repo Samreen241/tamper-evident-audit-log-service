@@ -50,7 +50,7 @@ public class AuditRecordEntity {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    protected AuditRecordEntity() { }
+    public AuditRecordEntity() { }
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
     public long getSequenceNumber() { return sequenceNumber; }
