@@ -220,3 +220,14 @@ This log records meaningful AI-assisted work, human decisions, validation status
 - Validation: Tests were added but not executed because Maven was unavailable.
 - Human decision: Run `mvn clean test` locally and address failures.
 - Commit reference: `test: expand audit service unit coverage`.
+## Entry 024 - Focused unit-test expansion
+- Date: 2026-08-14
+- Task: Add unit coverage for compliance reporting, export validation, redaction validation, and JWT token handling.
+- Prompt summary: Continue the remaining changes and proceed with unit-test testing after Maven clean install succeeded.
+- Context: Existing domain, facade, and application-context tests were present; the remaining high-risk facades and security token service lacked focused unit coverage.
+- Accepted output: Added `ComplianceReportFacadeImplTest`, `AuditExportFacadeImplTest`, `RedactionFacadeImplTest`, and `JwtTokenServiceTest`.
+- Modified output: Tests use Mockito collaborators and assert traceability, required export criteria, redaction input behavior, JWT claims, and audience validation.
+- Rejected output: No production behavior was expanded during this test-only increment; the current redaction facade behavior is tested as implemented and remains a documented limitation.
+- Validation: `mvn clean test` could not be run from this shell because Maven is not installed on PATH. Run `mvn clean test` and `mvn clean install` through IntelliJ Maven or a configured Maven terminal.
+- Human decision: Engineer retains responsibility for reviewing the tests and confirming that the implementation behavior matches the assignment before submission.
+- Commit reference: Pending user commit.
