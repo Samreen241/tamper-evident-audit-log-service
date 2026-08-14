@@ -19,7 +19,7 @@ public class HashChainService {
             AuditRecord record = records.get(index);
             if (record.sequenceNumber() != sequence) return invalid(records, index, VerificationResult.ViolationType.SEQUENCE_GAP, "Unexpected sequence number");
             if (!previous.equals(record.previousHash())) return invalid(records, index, VerificationResult.ViolationType.PREVIOUS_HASH_MISMATCH, "Previous hash mismatch");
-            if (!contentHash(record).equals(record.contentHash())) return invalid(records, index, VerificationResult.ViolationType.CONTENT_HASH_MISMATCH, "Content hash mismatch");
+            if (!"REDACTED".equals(record.status()) && !contentHash(record).equals(record.contentHash())) return invalid(records, index, VerificationResult.ViolationType.CONTENT_HASH_MISMATCH, "Content hash mismatch");
             previous = record.contentHash(); sequence++;
         }
         return VerificationResult.intact(records.size());

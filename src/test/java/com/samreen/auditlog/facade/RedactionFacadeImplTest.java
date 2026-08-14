@@ -17,11 +17,14 @@ class RedactionFacadeImplTest {
     @Test
     void acceptsARequestedRedactionForExistingEvent() {
         UUID id = UUID.randomUUID();
-        when(repository.findById(id)).thenReturn(java.util.Optional.of(new com.samreen.auditlog.entity.AuditRecordEntity()));
+        var entity = new com.samreen.auditlog.entity.AuditRecordEntity();
+        entity.setPayload("{\"accountNumber\":\"1234\",\"safe\":true}");
+        entity.setStatus("ACTIVE");
+        when(repository.findById(id)).thenReturn(java.util.Optional.of(entity));
 
         RedactionResponse response = facade.redact(id, new RedactionRequest(Set.of("$.accountNumber"), "privacy"));
 
-        assertThat(response.status()).isEqualTo("REQUESTED");
+        assertThat(response.status()).isEqualTo("REDACTED");
         assertThat(response.paths()).containsExactly("$.accountNumber");
     }
 
