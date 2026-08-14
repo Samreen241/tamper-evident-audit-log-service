@@ -33,6 +33,8 @@ The command produces Surefire results under `target/surefire-reports/` and JaCoC
 
 The requirement-to-test mapping is maintained in `docs/REQUIREMENTS_TO_TEST_MATRIX.md`.
 
+Production-readiness decisions and infrastructure dependencies are maintained in `docs/PRODUCTION_READINESS.md`.
+
 ## Human review
 
 High-impact changes to chain construction, redaction, retention, and authorization assumptions require engineer review before acceptance.

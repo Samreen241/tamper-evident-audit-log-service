@@ -1,5 +1,6 @@
 package com.samreen.auditlog.security;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.http.HttpMethod;
@@ -15,6 +16,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.*;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableMethodSecurity
@@ -22,6 +26,7 @@ public class SecurityConfig {
   @Bean
   SecurityFilterChain chain(HttpSecurity h, JwtAuthenticationFilter f) throws Exception {
     return h.csrf(c -> c.disable())
+        .cors(c -> {})
         .exceptionHandling(
             e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
         .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -50,6 +55,20 @@ public class SecurityConfig {
                     .authenticated())
         .addFilterBefore(f, UsernamePasswordAuthenticationFilter.class)
         .build();
+  }
+
+  @Bean
+  CorsConfigurationSource corsConfigurationSource(
+      @Value("${app.security.allowed-origins:}") String allowedOrigins) {
+    var config = new CorsConfiguration();
+    config.setAllowedOrigins(
+        allowedOrigins.isBlank() ? List.of() : List.of(allowedOrigins.split(",")));
+    config.setAllowedMethods(List.of("GET", "POST", "OPTIONS"));
+    config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Idempotency-Key"));
+    config.setMaxAge(3600L);
+    var source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+    return source;
   }
 
   @Bean

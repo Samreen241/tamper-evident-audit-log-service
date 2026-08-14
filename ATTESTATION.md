@@ -34,7 +34,6 @@ Latest development update: 2026-08-14 - AI usage log order corrected through Ent
 
 Latest development update: 2026-08-14 - H2 console access was removed from the public security allowlist; production credentials are now required through configuration; endpoint authorization, invalid-credential, malformed-request, and pagination-limit integration tests were added; serializable append transactions and centralized safe error responses were added.
 
-Verification update: 2026-08-14 - Candidate-side `mvn clean verify` completed successfully after applying Spotless formatting. The generated Surefire and JaCoCo artifacts are located under `target/` and must be included separately because `target/` is Git-ignored. The repository baseline revision is branch `main`, commit `45a8d3d58cac33f298d97f596de620ba862669c8`;
-
+Evidence update: `.github/workflows/ci.yml` runs reproducible Java 21 verification and uploads build, Surefire, JaCoCo, and dependency-check artifacts. The `evaluation-evidence/` directory documents the artifact bundle and negative API test mapping. These generated reports must be archived from the final committed revision.
 
 I, Shaik Samreen, attest that this submission is my own individual work, completed on my own machine and accounts, and that it honestly reflects my development process and use of AI.

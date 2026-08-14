@@ -1,0 +1,31 @@
+name: build-and-evidence
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - run: mvn --batch-mode --no-transfer-progress clean verify
+      - run: mvn --batch-mode --no-transfer-progress org.owasp:dependency-check-maven:check -DskipTestScope=true
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-log-verification-evidence
+          path: |
+            target/surefire-reports/
+            target/site/jacoco/
+            target/dependency-check-report.html
+            target/dependency-check-report.xml
+          if-no-files-found: warn

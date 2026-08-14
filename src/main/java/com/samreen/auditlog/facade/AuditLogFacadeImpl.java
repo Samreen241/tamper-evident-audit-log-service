@@ -31,6 +31,10 @@ public class AuditLogFacadeImpl implements AuditLogFacade {
   public Page<AuditEventResponse> queryEvents(AuditEventQuery q) {
     if (q.page() < 0 || q.size() < 1 || q.size() > 100)
       throw new IllegalArgumentException("Page size must be between 1 and 100");
+    if (q.sort() != null
+        && !q.sort().equals("sequenceNumber,asc")
+        && !q.sort().equals("sequenceNumber,desc"))
+      throw new IllegalArgumentException("Unsupported sort order");
     return service
         .query(
             q,

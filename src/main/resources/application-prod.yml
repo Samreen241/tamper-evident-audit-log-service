@@ -14,3 +14,4 @@ app.jwt.expiration: ${JWT_EXPIRATION:PT15M}
 app.jwt.audience: ${JWT_AUDIENCE}
 app.security.writer-password: ${WRITER_PASSWORD}
 app.security.admin-password: ${ADMIN_PASSWORD}
+app.security.allowed-origins: ${ALLOWED_ORIGINS}
