@@ -1,3 +1,33 @@
 package com.samreen.auditlog.controller;
-import com.samreen.auditlog.facade.*; import io.swagger.v3.oas.annotations.Operation; import io.swagger.v3.oas.annotations.security.SecurityRequirement; import org.springframework.data.domain.Page; import org.springframework.web.bind.annotation.*; import java.time.Instant;
-@RestController @RequestMapping("/api/v1/audit/compliance") public class ComplianceReportController { private final ComplianceReportFacade facade; public ComplianceReportController(ComplianceReportFacade f){facade=f;} @GetMapping("/access-report") @Operation(summary="Report client-account access",security=@SecurityRequirement(name="bearerAuth")) public Page<ComplianceAccessReport> report(@RequestParam(required=false)String actorId,@RequestParam(required=false)String resourceId,@RequestParam(required=false)String eventType,@RequestParam(required=false)Instant from,@RequestParam(required=false)Instant to,@RequestParam(defaultValue="0")int page,@RequestParam(defaultValue="20")int size){return facade.accessReport(actorId,resourceId,eventType,from,to,page,size);}}
+
+import com.samreen.auditlog.facade.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import java.time.Instant;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/v1/audit/compliance")
+public class ComplianceReportController {
+  private final ComplianceReportFacade facade;
+
+  public ComplianceReportController(ComplianceReportFacade f) {
+    facade = f;
+  }
+
+  @GetMapping("/access-report")
+  @Operation(
+      summary = "Report client-account access",
+      security = @SecurityRequirement(name = "bearerAuth"))
+  public Page<ComplianceAccessReport> report(
+      @RequestParam(required = false) String actorId,
+      @RequestParam(required = false) String resourceId,
+      @RequestParam(required = false) String eventType,
+      @RequestParam(required = false) Instant from,
+      @RequestParam(required = false) Instant to,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "20") int size) {
+    return facade.accessReport(actorId, resourceId, eventType, from, to, page, size);
+  }
+}
