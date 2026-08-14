@@ -14,6 +14,10 @@ public class AuditLogFacadeImpl implements AuditLogFacade {
   }
 
   public AuditEventResponse appendEvent(CreateAuditEventCommand c) {
+    return appendEvent(c, null);
+  }
+
+  public AuditEventResponse appendEvent(CreateAuditEventCommand c, String idempotencyKey) {
     if (c == null
         || blank(c.eventType())
         || blank(c.actorId())
@@ -21,7 +25,7 @@ public class AuditLogFacadeImpl implements AuditLogFacade {
         || blank(c.resourceId())
         || c.payload() == null)
       throw new IllegalArgumentException("Required audit event fields are missing");
-    return response(service.append(c));
+    return response(service.append(c, idempotencyKey));
   }
 
   public Page<AuditEventResponse> queryEvents(AuditEventQuery q) {

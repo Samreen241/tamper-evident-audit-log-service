@@ -35,7 +35,9 @@ public class AuditEventController {
     @ApiResponse(responseCode = "400", description = "Validation failure"),
     @ApiResponse(responseCode = "401", description = "Authentication required")
   })
-  public AuditEventResponse append(@Valid @RequestBody CreateAuditEventRequest request) {
+  public AuditEventResponse append(
+      @RequestHeader(value = "Idempotency-Key", required = false) String idempotencyKey,
+      @Valid @RequestBody CreateAuditEventRequest request) {
     var result =
         facade.appendEvent(
             new CreateAuditEventCommand(
@@ -44,7 +46,8 @@ public class AuditEventController {
                 request.resourceType(),
                 request.resourceId(),
                 request.payload(),
-                request.timestamp()));
+                request.timestamp()),
+            idempotencyKey == null || idempotencyKey.isBlank() ? null : idempotencyKey.trim());
     return new AuditEventResponse(
         result.id(),
         result.sequenceNumber(),

@@ -12,4 +12,6 @@ app.jwt.issuer: audit-log-service-test
 app.jwt.secret: test-only-secret-that-is-at-least-32-chars
 app.jwt.expiration: PT5M
 app.jwt.audience: audit-log-service-test
+app.security.writer-password: local-writer-password
+app.security.admin-password: local-admin-password
 external.integrations.enabled: false

@@ -14,3 +14,5 @@ app.jwt.issuer: ${LOCAL_JWT_ISSUER:audit-log-service-local}
 app.jwt.secret: ${LOCAL_JWT_SECRET:local-development-secret-at-least-32-chars}
 app.jwt.expiration: ${LOCAL_JWT_EXPIRATION:PT30M}
 app.jwt.audience: ${LOCAL_JWT_AUDIENCE:audit-log-service}
+app.security.writer-password: ${LOCAL_WRITER_PASSWORD:local-writer-password}
+app.security.admin-password: ${LOCAL_ADMIN_PASSWORD:local-admin-password}

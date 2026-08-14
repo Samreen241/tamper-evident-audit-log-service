@@ -21,6 +21,18 @@ Additional unit coverage now includes retention cutoff validation, non-positive 
 - Dependency and security checks are reviewed.
 - Setup instructions work from a clean checkout.
 
+## Verification evidence
+
+The successful verification command is:
+
+```text
+mvn clean verify
+```
+
+The command produces Surefire results under `target/surefire-reports/` and JaCoCo reports under `target/site/jacoco/`. These generated artifacts should be copied into the evaluation evidence bundle because `target/` is intentionally ignored by Git.
+
+The requirement-to-test mapping is maintained in `docs/REQUIREMENTS_TO_TEST_MATRIX.md`.
+
 ## Human review
 
 High-impact changes to chain construction, redaction, retention, and authorization assumptions require engineer review before acceptance.

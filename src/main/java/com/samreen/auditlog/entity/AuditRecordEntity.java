@@ -55,6 +55,9 @@ public class AuditRecordEntity {
   @Column(name = "content_hash", nullable = false, length = 128)
   private String contentHash;
 
+  @Column(name = "idempotency_key", length = 128, unique = true)
+  private String idempotencyKey;
+
   @Column(nullable = false, length = 32)
   private String status;
 
@@ -152,6 +155,14 @@ public class AuditRecordEntity {
 
   public void setContentHash(String value) {
     contentHash = value;
+  }
+
+  public String getIdempotencyKey() {
+    return idempotencyKey;
+  }
+
+  public void setIdempotencyKey(String value) {
+    idempotencyKey = value;
   }
 
   public String getStatus() {

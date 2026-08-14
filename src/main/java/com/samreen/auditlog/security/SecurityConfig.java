@@ -31,8 +31,7 @@ public class SecurityConfig {
                         "/api/v1/auth/login",
                         "/swagger-ui.html",
                         "/swagger-ui/**",
-                        "/v3/api-docs/**",
-                        "/h2-console/**")
+                        "/v3/api-docs/**")
                     .permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/audit/events")
                     .hasRole("AUDIT_WRITER")
@@ -61,8 +60,8 @@ public class SecurityConfig {
   @Bean
   UserDetailsService users(
       PasswordEncoder e,
-      @Value("${app.security.writer-password:local-writer-password}") String w,
-      @Value("${app.security.admin-password:local-admin-password}") String a) {
+      @Value("${app.security.writer-password}") String w,
+      @Value("${app.security.admin-password}") String a) {
     return new InMemoryUserDetailsManager(
         User.withUsername("writer").password(e.encode(w)).roles("AUDIT_WRITER").build(),
         User.withUsername("admin")

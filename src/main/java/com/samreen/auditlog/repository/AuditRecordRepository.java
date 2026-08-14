@@ -16,6 +16,8 @@ public interface AuditRecordRepository
     extends JpaRepository<AuditRecordEntity, UUID>, JpaSpecificationExecutor<AuditRecordEntity> {
   Optional<AuditRecordEntity> findTopByOrderBySequenceNumberDesc();
 
+  Optional<AuditRecordEntity> findByIdempotencyKey(String idempotencyKey);
+
   java.util.List<AuditRecordEntity> findAllByOrderBySequenceNumberAsc();
 
   @Modifying

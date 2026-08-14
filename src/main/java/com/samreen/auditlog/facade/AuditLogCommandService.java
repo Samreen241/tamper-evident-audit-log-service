@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -27,8 +28,17 @@ public class AuditLogCommandService {
     hashing = h;
   }
 
-  @Transactional
+  @Transactional(isolation = Isolation.SERIALIZABLE)
   public AuditRecord append(CreateAuditEventCommand c) {
+    return append(c, null);
+  }
+
+  @Transactional(isolation = Isolation.SERIALIZABLE)
+  public AuditRecord append(CreateAuditEventCommand c, String idempotencyKey) {
+    if (idempotencyKey != null) {
+      var existing = repository.findByIdempotencyKey(idempotencyKey);
+      if (existing.isPresent()) return mapper.toDomain(existing.get());
+    }
     var latest = repository.findTopByOrderBySequenceNumberDesc();
     long seq = latest.map(AuditRecordEntity::getSequenceNumber).orElse(0L) + 1;
     String previous =
@@ -48,6 +58,7 @@ public class AuditLogCommandService {
     entity.setIngestedAt(now);
     entity.setCreatedAt(now);
     entity.setStatus("ACTIVE");
+    entity.setIdempotencyKey(idempotencyKey);
     repository.save(entity);
     return record;
   }
