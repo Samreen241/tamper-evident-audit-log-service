@@ -15,3 +15,6 @@ app.jwt.audience: ${JWT_AUDIENCE}
 app.security.writer-password: ${WRITER_PASSWORD}
 app.security.admin-password: ${ADMIN_PASSWORD}
 app.security.allowed-origins: ${ALLOWED_ORIGINS}
+app.security.rate-limit.login-per-window: ${LOGIN_RATE_LIMIT:10}
+app.security.rate-limit.write-per-window: ${WRITE_RATE_LIMIT:120}
+app.security.rate-limit.window: ${RATE_LIMIT_WINDOW:PT1M}

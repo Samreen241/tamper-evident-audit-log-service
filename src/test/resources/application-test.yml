@@ -15,4 +15,7 @@ app.jwt.audience: audit-log-service-test
 app.security.writer-password: local-writer-password
 app.security.admin-password: local-admin-password
 app.security.allowed-origins: http://localhost:3000
+app.security.rate-limit.login-per-window: 1000
+app.security.rate-limit.write-per-window: 1000
+app.security.rate-limit.window: PT1M
 external.integrations.enabled: false

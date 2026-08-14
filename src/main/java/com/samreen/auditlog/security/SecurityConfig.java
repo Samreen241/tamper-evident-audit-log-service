@@ -24,7 +24,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableMethodSecurity
 public class SecurityConfig {
   @Bean
-  SecurityFilterChain chain(HttpSecurity h, JwtAuthenticationFilter f) throws Exception {
+  SecurityFilterChain chain(
+      HttpSecurity h, JwtAuthenticationFilter f, RequestRateLimitFilter rateLimitFilter)
+      throws Exception {
     return h.csrf(c -> c.disable())
         .cors(c -> {})
         .exceptionHandling(
@@ -54,6 +56,7 @@ public class SecurityConfig {
                     .anyRequest()
                     .authenticated())
         .addFilterBefore(f, UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(rateLimitFilter, JwtAuthenticationFilter.class)
         .build();
   }
 
