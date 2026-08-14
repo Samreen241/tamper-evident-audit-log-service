@@ -60,7 +60,7 @@ public class AuditEventController {
 
   @GetMapping("/events")
   @Operation(summary = "Query audit events", security = @SecurityRequirement(name = "bearerAuth"))
-  public Page<com.samreen.auditlog.facade.AuditEventResponse> query(
+  public Page<AuditEventResponse> query(
       @RequestParam(required = false) String actorId,
       @RequestParam(required = false) String resourceType,
       @RequestParam(required = false) String resourceId,

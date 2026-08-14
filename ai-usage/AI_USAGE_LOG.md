@@ -230,27 +230,54 @@ This log records meaningful AI-assisted work, human decisions, validation status
 - Rejected output: No production behavior was expanded during this test-only increment; the current redaction facade behavior is tested as implemented and remains a documented limitation.
 - Validation: `mvn clean test` could not be run from this shell because Maven is not installed on PATH. Run `mvn clean test` and `mvn clean install` through IntelliJ Maven or a configured Maven terminal.
 - Human decision: Engineer retains responsibility for reviewing the tests and confirming that the implementation behavior matches the assignment before submission.
-- Commit reference: Pending user commit.
+- Commit reference: `add2e78 test: expand facade and security unit coverage`.
 
-## Entry 026 - Build validation completed
-- Date: 2026-08-14
-- Task: Validate the completed audit service changes after resolving Spring Boot 4 MVC test dependencies, authentication status handling, and redaction test setup.
-- Prompt summary: Build succeeded; update the attestation and AI usage log and provide a commit message.
-- Context: The project required a successful Maven validation before recording the implementation as ready for the next commit.
-- Accepted output: The user confirmed the build succeeded after the fixes.
-- Modified output: Recorded successful build/test validation in the attestation and this traceability entry.
-- Rejected output: No claim is made that PostgreSQL production deployment or manual local browser verification was completed unless separately performed by the engineer.
-- Validation: User-confirmed Maven build success.
-- Human decision: Engineer reviewed the build result and retains responsibility for final API and runtime verification.
-- Commit reference: Pending user commit.
 ## Entry 025 - Pending API and security completion
 - Date: 2026-08-14
 - Task: Complete missing query, login, compliance authorization, retention, and redaction behavior; add smoke integration coverage.
-- Prompt summary: Implement all identified submission blockers and verify H2, JWT, Swagger, and tamper-related behavior.
-- Context: Source audit identified missing query/login controllers, an incorrect compliance URL matcher, retention without an application operation, and redaction as a no-op.
-- Accepted output: Added the query endpoint, `AuthController`, retention facade/controller, corrected security matchers, privacy redaction with path commitments and redacted status, and smoke tests for Swagger, JWT login, and query authentication.
-- Modified output: Redacted records retain their original chain hash and verification skips recalculation for explicitly redacted records while preserving chain-link checks. Redaction currently supports top-level `$.field` paths only.
-- Rejected output: No broad nested JSON-path implementation or automatic scheduled job was added; those require a separate policy decision and additional validation.
-- Validation: Maven execution remains pending in this shell because `mvn` is unavailable on PATH. Run `mvn clean test` and `mvn clean install` through IntelliJ Maven. Manual local-profile verification remains pending.
-- Human decision: Engineer must review the redaction threat model, run the full integration suite, and confirm H2 behavior before submission.
-- Commit reference: Pending user commit.
+- Accepted output: Added the query endpoint, `AuthController`, retention facade/controller, corrected security matchers, privacy redaction, and smoke tests.
+- Validation: Maven execution was pending at the time; later build validation was recorded separately.
+- Commit reference: `a3a8e54 test: complete audit service validation`.
+
+## Entry 026 - Build validation completed
+- Date: 2026-08-14
+- Task: Validate the completed audit service changes.
+- Accepted output: User confirmed Maven build and tests succeeded after resolving MVC test dependencies and test failures.
+- Validation: User-confirmed Maven build success.
+- Commit reference: `a3a8e54 test: complete audit service validation`.
+
+## Entry 027 - Local profile startup correction
+- Date: 2026-08-14
+- Task: Diagnose missing H2 `audit_records` during startup.
+- Accepted output: Set `spring.profiles.default: local` so normal local launches use H2.
+- Validation: Runtime restart required.
+- Commit reference: docs: update runtime verification traceability
+
+## Entry 028 - H2 startup resilience
+- Date: 2026-08-14
+- Task: Make local H2 startup resilient when the schema is not initialized.
+- Accepted output: Temporarily configured local Hibernate schema update while production remains Flyway-managed and validated.
+- Validation: Runtime restart required.
+- Commit reference:docs: update runtime verification traceability
+
+## Entry 029 - Local schema ownership correction
+- Date: 2026-08-14
+- Task: Remove duplicate H2 DDL warnings after startup.
+- Accepted output: Restored local validation while investigating Flyway initialization.
+- Validation: User log confirmed the application had started with duplicate DDL warnings.
+- Commit reference: docs: update runtime verification traceability
+
+## Entry 030 - Local H2 startup configuration
+- Date: 2026-08-14
+- Task: Make local H2 testing independent of Flyway runtime initialization.
+- Accepted output: Local profile now uses `ddl-auto: update` and disables Flyway; production continues to use Flyway with `ddl-auto: validate`.
+- Validation: Restart required to confirm final local configuration.
+- Human decision: Engineer must separately validate production migrations against H2/PostgreSQL.
+- Commit reference: docs: update runtime verification traceability
+
+## Entry 031 - Swagger JWT verification guidance
+- Date: 2026-08-14
+- Task: Explain how to authorize Swagger requests and diagnose the `/verify` secured response.
+- Accepted output: Documented using the admin JWT with the `Bearer` prefix; clarified that `401` means missing/invalid authentication and `403` means insufficient role.
+- Validation: Endpoint security configuration requires `AUDIT_ADMIN` for chain verification.
+- Commit reference: docs: update runtime verification traceability

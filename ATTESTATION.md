@@ -30,4 +30,6 @@ Latest development update: 2026-08-14 - additional JUnit coverage added for rete
 
 Latest development update: 2026-08-14 - Maven clean build and test validation succeeded after completing API, JWT, retention, redaction, Swagger, and H2 test coverage; no commit created by AI.
 
+Latest development update: 2026-08-14 - AI usage log order corrected through Entry 031; Swagger JWT authorization and `/verify` role behavior documented; no commit created by AI.
+
 I, Shaik Samreen, attest that this submission is my own individual work, completed on my own machine and accounts, and that it honestly reflects my development process and use of AI.

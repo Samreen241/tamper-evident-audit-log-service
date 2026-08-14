@@ -2,6 +2,9 @@ spring:
   application:
     name: audit-log-service
 
+  profiles:
+    default: local
+
   jpa:
     open-in-view: false
   flyway:
