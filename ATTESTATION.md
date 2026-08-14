@@ -34,10 +34,5 @@ Latest development update: 2026-08-14 - AI usage log order corrected through Ent
 
 Latest development update: 2026-08-14 - H2 console access was removed from the public security allowlist; production credentials are now required through configuration; endpoint authorization, invalid-credential, malformed-request, and pagination-limit integration tests were added; serializable append transactions and centralized safe error responses were added.
 
-Evidence update: `.github/workflows/ci.yml` runs reproducible Java 21 verification and uploads build, Surefire, JaCoCo, and dependency-check artifacts. The `evaluation-evidence/` directory documents the artifact bundle and negative API test mapping. These generated reports must be archived from the final committed revision.
-
-Reproducibility clarification: the included `target/` files are archived build evidence, not proof of a fresh execution in every evaluator environment. This archive does not currently contain Maven Wrapper files. Fresh verification requires Maven 3.9+ and Java 21, or the Java 21 CI workflow; `docs/REPRODUCIBLE_BUILD.md` records this limitation and the exact command.
-
-Revision evidence: final reviewed branch is `main`. The parent revision before this attestation update is `becbffc`. The final reviewed submission revision is the commit created after adding this attestation update; after committing, record that commit's full hash here and archive the Maven, Surefire, JaCoCo, and dependency-check artifacts generated from that exact commit.
-
+Latest development update: 2026-08-14 - docs: finalize attestation and evidence scop
 I, Shaik Samreen, attest that this submission is my own individual work, completed on my own machine and accounts, and that it honestly reflects my development process and use of AI.
