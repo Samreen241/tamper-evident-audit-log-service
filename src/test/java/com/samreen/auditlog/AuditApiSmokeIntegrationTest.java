@@ -42,6 +42,15 @@ class AuditApiSmokeIntegrationTest {
   }
 
   @Test
+  void forgedBearerTokenIsRejected() throws Exception {
+    String token = login("writer", "local-writer-password");
+    String forged = token.substring(0, token.length() - 2) + "aa";
+    mockMvc
+        .perform(get("/api/v1/audit/events").header("Authorization", "Bearer " + forged))
+        .andExpect(status().isUnauthorized());
+  }
+
+  @Test
   void h2ConsoleIsNotPubliclyAccessible() throws Exception {
     mockMvc.perform(get("/h2-console")).andExpect(status().isUnauthorized());
   }
@@ -136,6 +145,34 @@ class AuditApiSmokeIntegrationTest {
             get("/api/v1/audit/compliance/access-report")
                 .header("Authorization", "Bearer " + token))
         .andExpect(status().isForbidden());
+  }
+
+  @Test
+  void allAdministrativeRoutesRequireAuthentication() throws Exception {
+    mockMvc.perform(get("/api/v1/audit/export")).andExpect(status().isUnauthorized());
+    mockMvc
+        .perform(get("/api/v1/audit/compliance/access-report"))
+        .andExpect(status().isUnauthorized());
+    mockMvc
+        .perform(post("/api/v1/audit/retention/archive-expired"))
+        .andExpect(status().isUnauthorized());
+    mockMvc
+        .perform(
+            post("/api/v1/audit/events/00000000-0000-0000-0000-000000000000/redactions")
+                .contentType("application/json")
+                .content("{\"jsonPaths\":[\"$.secret\"],\"reason\":\"test\"}"))
+        .andExpect(status().isUnauthorized());
+  }
+
+  @Test
+  void unsupportedSortOrderIsRejected() throws Exception {
+    String token = login("admin", "local-admin-password");
+    mockMvc
+        .perform(
+            get("/api/v1/audit/events")
+                .param("sort", "payload,desc")
+                .header("Authorization", "Bearer " + token))
+        .andExpect(status().isBadRequest());
   }
 
   private String login(String username, String password) throws Exception {

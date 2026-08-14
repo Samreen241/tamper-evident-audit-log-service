@@ -36,4 +36,6 @@ Latest development update: 2026-08-14 - H2 console access was removed from the p
 
 Evidence update: `.github/workflows/ci.yml` runs reproducible Java 21 verification and uploads build, Surefire, JaCoCo, and dependency-check artifacts. The `evaluation-evidence/` directory documents the artifact bundle and negative API test mapping. These generated reports must be archived from the final committed revision.
 
+Revision evidence: final reviewed branch is `main`. The parent revision before this attestation update is `becbffc`. The final reviewed submission revision is the commit created after adding this attestation update; after committing, record that commit's full hash here and archive the Maven, Surefire, JaCoCo, and dependency-check artifacts generated from that exact commit.
+
 I, Shaik Samreen, attest that this submission is my own individual work, completed on my own machine and accounts, and that it honestly reflects my development process and use of AI.
